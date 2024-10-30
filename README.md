@@ -1,50 +1,153 @@
-# Welcome to your Expo app 👋
+![header](https://github.com/user-attachments/assets/467dadec-f26a-4e7a-a6b4-07da37c17b6c)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Abstract
+A collaborative habit-building app that leverages social accountability to help users establish and maintain positive routines. Users join groups centered around specific habits—such as cleaning, going to the library to study, or exercising—and participate in check-ins that require evidence of their progress in the form of photos (like BeReal). Group members validate each other's check-ins, creating a supportive community that fosters commitment and consistency. If users cumulatively miss the required number of check ins, not only does the streak visibly reset but a beautiful unique plant that was once growing is uprooted and reset (like Forest), adding a gentle layer of peer accountability. To motivate ongoing participation, consistent users earn badges and unlock new plants. By combining habit tracking with peer validation, this idea transforms personal goal-setting into a shared journey, enhancing motivation through collective encouragement and accountability.
 
-## Get started
+###### Keywords: 005, accountability, habits, social, expo, firebase
 
-1. Install dependencies
+### High Level Requirement
+A collaborative habit-building app that leverages social accountability to help users establish and maintain positive routines.
 
-   ```bash
-   npm install
-   ```
+### Conceptual Design
+This app uses React Native Expo as a frontend mobile framework, Firebase as a backend for storing user data, assets, and group data. It also will likely use Stable Diffusion 3.5 Large to generate assets.
 
-2. Start the app
+#### Early Experimentation with SD 3.5 Large for Asset Generation
 
-   ```bash
-    npx expo start
-   ```
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/109b6902-9ff9-4304-9160-828614c94017" height="200" />
+  <img src="https://github.com/user-attachments/assets/e8fda27a-add0-45ff-b867-69748d9d1b91" height="200" /> 
+  <img src="https://github.com/user-attachments/assets/628e7f1c-ba03-4179-be34-7ad2e77590ba" height="200" />
+</p>
 
-In the output, you'll find options to open the app in a
+_Examples of generating plant assets with Stable Diffusion 3.5 Large._
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+| Setting            | Value                                           |
+|--------------------|-------------------------------------------------|
+| **Prompt**         | isolated {plant_name} plant at the {growth_stage}, white background, isometric perspective, 8-bit pixel art style |
+| **Aspect Ratio**   | 1:1                                             |
+| **CFG**            | 3.5                                             |
+| **Prompt Strength**| 0.85 (1.0 might be better)                                           |
+| **Steps**          | 40 (35 might be better)                                             |
+| **Seed**           | 227468720                                       |
+| **Output Format**  | webp                                            |
+| **Output Quality** | 90                                              |
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+_The settings to generate the previous examples. Curly brackets indicate arguments to the template prompt. Growth stages indicate the progression of the plant at a certain life cycle._
 
-## Get a fresh project
+| Stage | Description |
+|--------------------|-------------------------------------------------|
+| **Sprouting** | sprouting stage where it germinates and grows its first leaf |
+| **Seedling** | seedling stage where a small green shoot emerges above the soil with tiny leaves starting to spread |
+| **Vegetating** | vegetating stage where the plant grows taller with thickening stems and broadening leaves |
+| **Budding** | budding stage where the plant is transitioning to blooming and small buds appear signaling flower formation |
+| **Flowering** | flowering stage where the plant displays fully opened and prominent flowers |
+| **Fruiting** | fruiting stage where the plant produces fruits as the flowers fade |
+| **Dying** | dying stage where the plant turns brown and wilts |
 
-When you're ready, run:
+##### Yucca
 
-```bash
-npm run reset-project
-```
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/2d712102-de27-4719-9c90-2dc03927fbeb" height="100" />
+  <img src="https://github.com/user-attachments/assets/3c40cfb0-0f96-44e1-9303-ca75a15406b1" height="100" />
+  <img src="https://github.com/user-attachments/assets/2e4768d0-d1c0-42a1-95f2-ae5389e6512c" height="100" />
+  <img src="https://github.com/user-attachments/assets/a0ce1303-fbe8-4c27-8e14-806669470562" height="100" />
+  <img src="https://github.com/user-attachments/assets/2820ed4a-ebe2-42be-83fb-56914d7c28e5" height="100" />
+  <img src="https://github.com/user-attachments/assets/4183f56f-9718-46bd-8d34-d931caf9817a" height="100" />
+</p>
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+##### Bird of Paradise
 
-## Learn more
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/05997a85-9ffa-4de5-b2d3-47ea4ce2d5a0" height="100" />
+  <img src="https://github.com/user-attachments/assets/369f754a-e252-4daa-bbc9-1bec7736c734" height="100" />
+  <img src="https://github.com/user-attachments/assets/66cc6241-50ea-4f16-a561-9caeb89ca744" height="100" />
+  <img src="https://github.com/user-attachments/assets/fb3937b1-d333-4845-8ab2-cf4799dc7653" height="100" />
+  <img src="https://github.com/user-attachments/assets/7ac915b2-1a95-4074-a289-9330aae3689b" height="100" />
+  <img src="https://github.com/user-attachments/assets/8c2b9dbf-6f9a-4792-8c6f-bb6ff2b747f0" height="100" />
+</p>
 
-To learn more about developing your project with Expo, look at the following resources:
+#### Mechanics
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+##### Credits
 
-## Join the community
+Users earn credits in a few ways:
 
-Join our community of developers creating universal apps.
+1. Each time the user logs a habit for the week (even if the plant dies at the end of the week). User earns extra credits if they log more habits than necessary for the week.
+2. Each time the team successfully grows a plant for the week.
+3. Every day each plant in the garden is kept alive users can collect a small amount of credits from each plant.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Users can use their credits to buy things for the garden, like pets, paths, decorations, and food to keep the existing plants and animals in the garden alive.
+
+Here are the items planned so far:
+| Item | Description |
+|--------------------|-------------------------------------------------|
+| **Pets** | Animated NPCs that allow plants to live longer without **Fertilizer** |
+| **Decorations** | Purely cosmetic items that spruce up the users' garden |
+| **Kibble** | Food for **Pets** that keep them alive and healthy |
+| **Fertilizer** | Food for plants that keep them alive and healthy |
+| **Gaia** | A magic stone that allows users a 50% chance to save a plant that died |
+
+##### Unique Events
+
+Events that allow users to skip feeding their existing plants for the week.
+
+- It will randomly rain on occasion.
+- A rainbow will appear.
+- Rare animal visiting.
+
+##### Habit Guidance
+
+Provide guidance on how to choose and formulate a good habit.
+
+##### Nudges
+
+If users are not meeting goals consistently or are constantly exceeding goals, give nudges for recommendations to adjust.
+
+##### Reflection
+
+Users can write an optional reflection that gives them the opportunity to write about their high and low of the week. Pair this with rewarding animations of the plant and pets.
+
+##### Badges
+
+Certain badges are rewarded for unique accomplishments.
+
+##### Streaks
+
+Streaks of multiple weeks of successfully growing a plant give users the opportunity to keep growing. Maybe give the opportunity to plant a tree at long term streak?
+
+#### Page Designs
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/9dc53ade-f544-42b5-b597-d12722d1352b" height="400" />
+  <img src="https://github.com/user-attachments/assets/94e51c34-6207-4255-ad9b-49b486043f12" height="400" />
+  <img src="https://github.com/user-attachments/assets/ecf115d0-9eb9-4460-ab12-70a585fec0e6" height="400" />
+  <img src="https://github.com/user-attachments/assets/a1b81ae8-9c2d-4b27-abc3-f82c1df9ee5d" height="400" />
+  <img src="https://github.com/user-attachments/assets/7b2318d4-3fc0-440d-90e4-b05e749f1067" height="400" />
+  <img src="https://github.com/user-attachments/assets/81a28e94-d5fc-476c-9ac9-e22dcfedd989" height="400" />
+  <img src="https://github.com/user-attachments/assets/cec70125-a9c1-4847-bd50-a8e3a67bc51d" height="400" />
+</p>
+
+## Proof of Concept
+[growe (demo branch)](https://github.com/gutbash/growe)
+
+## Background
+This is the life cycle of a user on this app for a three person group with the goal to workout 3 days a week:
+
+1. User creates account.
+8. Add friends by username.
+9. Create group.
+10. Choose a habit. A good example is to go for a run 3 days a week. A bad example is run 1 mile three days a week. It shouldn't need to be quantified, only specific enough that can be verified from a simple photo. qualitative > quantitative.
+11. Set minimum frequency of check-in (i.e. work out 3 days a week).
+12. Invite friends to join.
+13. At the start of every period (i.e. week), given a library of plants to choose from (will auto-pick if not chosen). plants are standard and take minimum frequency (i.e. 3 users * 3 days = 9 total check-ins for the week), while accessories to the garden may take a multiplier of more check-ins (i.e. 3 users * 3 days + 3 extra = 12 total check-ins for the week).
+14. Users take a picture of their workout (not from camera roll) at their discretion three times on separate days of the week.
+15. Users must endorse it as valid, can also upvote and comment.
+16. Every time a user's check-in is endorsed as valid by everyone, the plant or accessory grows or progresses respectively.
+17. If users do not collectively reach the required number of check-ins, the plant that was growing dies.
+18. Repeat from step 9.
+
+## References
+https://bereal.com/
+https://www.forestapp.cc/
+https://expo.dev/
+https://openai.com/index/dall-e-3/
